@@ -3,30 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>resume</title>
+    <title>about</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js" type="module"></script>
+    <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js" nomodule></script>
 </head>
 <body>
 
-    <header class="header">
-        <div class="header-row row-left"><h1>Darlin</h1></div>
+    <header class="header ">
+        <div class="header-row row-left font"><h1>Darlin</h1></div>
         <div class="header-row row-right">
             <ul class="list-style">
-                <il><a href="#">About</a></il>
-                <il><a href="#">Work</a></il>
-                <il><a href="#">Contact</a></il>
-                <il><a href="#">Resume</a></il>
+                <li><a href="index.html" class="active">About</a></li>
+                <li><a href="work.html">Work</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="resume.html">Resume</a></li>
             </ul>
         </div>
     </header>
     <div class="flex-container-wrapper">
-        <section class="content"></section>
-        <aside class="sidebar"></aside>
+        <section class="content">
+            <div class="pfp-holder">
+                <img src="img/pfp.png" class="pfp">
+            </div>
+            <h3>Hi, im  darlin</h3>
+            <p>A passionate 18 year-old developer with a love for programming 
+                specificly how everything works behind the scenes.</p>
+
+
+
+        </section>
+        <aside class="sidebar">
+            <div class="icon-row">
+                <ion-icon name="code-outline" class="sidebar-icon"></ion-icon>
+                <h2 class="sidebar-text font" style="line-height: 10px;">About me</h2>
+            </div>
+            <p>Hello there! i'm Darlin, a <strong>Front-end web developer</strong></p>
+            <p>Fueled by the excitement of solving complex problems. </p>
+            <p>i am currently attending thaddeus stevens college of technology
+                and gradutating next year with a <strong>degree in Computer Software Engineering</strong>
+            </p>
+            <p>I perfer <strong>quiet environments to focus on my work</strong> and i am a big fan of anime and video games</p>
+
+
+
+        </aside>
     </div>
     <div class="flex-container-wrapper">
-        <section class="box"></section>
+        <section class="box">
+            <div class="box lang">
+                <div class="box grid-holder">
+                    <div class="icon-holder"><ion-icon name="globe-outline"></ion-icon> <p>Front-end Skills</p></div>
+                    <div class="box lang-grid">
+                        <div class="lang-item"><p>JavaScript</p></div> 
+                        <div class="lang-item"><p>Html</p></div>
+                        <div class="lang-item"><p>CSS</p></div>
+                    </div>
+                </div>
+
+                <div class="box grid-holder">
+                    <div class="icon-holder"><ion-icon name="server-outline"></ion-icon><p>Back-end skills</p></div>
+                    <div class="box lang-grid">
+                        <div class="lang-item"><p>Java</p></div> 
+                        <div class="lang-item"><p>Python</p></div> 
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
     <footer></footer>
-    
+    <script>
+    document.querySelectorAll('.list-style a').forEach(link => {
+        link.addEventListener('click', function() {
+            document.querySelector('.active')?.classList.remove('active');
+            this.classList.add('active');
+        });
+    });
+    </script>
 </body>
 </html>
