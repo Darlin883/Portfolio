@@ -433,3 +433,223 @@ body{
 .footer{
 
 }
+
+
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        height: auto;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .header-row {
+        width: 100%;
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .list-style {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        padding-left: 0;
+        background-color: #EBE9E1;
+        position: absolute;
+        top: 70px;
+        width: 100%;
+        left: 0;
+        z-index: 1000;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .list-style a {
+        display: block;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .menu-toggle {
+        display: block;
+        background-color: #E43D12;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .menu-toggle.active + .list-style {
+        display: flex;
+    }
+
+    .list-style {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        background: none;
+        position: static;
+        box-shadow: none;
+    }
+
+    .list-style a {
+        padding: 8px;
+        font-size: 16px;
+    }
+
+    .flex-container-wrapper {
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+    }
+
+    .content, .sidebar {
+        width: 90%;
+        margin: 10px auto;
+        height: auto;
+        padding: 10px;
+    }
+
+    .box, .work-grid {
+        width: 100%;
+        height: auto;
+    }
+
+    /* Work Grid Section */
+    .work-grid {
+        grid-template-columns: 1fr; /* Single column layout on smaller screens */
+        gap: 15px; /* Reduced gap between items */
+        padding: 0 10px; /* Horizontal padding for better spacing */
+    }
+
+    .work-item {
+        width: 100%; /* Stretch buttons to full width */
+        height: 50px;
+        margin: 10px auto;
+        padding: 15px; /* Adjust padding for appropriate button size */
+        font-size: 18px; /* Slightly smaller font size */
+        text-align: center;
+        color: white; 
+        border: 2px solid #E43D12; /* Added border color to match the theme */
+        border-radius: 8px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .work-item p {
+        /* font-weight: bold; */
+        margin: 0;
+    }
+
+    .work-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Contact Section */
+    .contact {
+        width: 100%;
+        max-width: 600px; /* Wider container for better spacing */
+        margin: 0 auto;
+        padding: 20px;
+        box-sizing: border-box;
+        border-radius: 8px; /* Rounded corners for the container */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .contact-box {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        justify-content: space-between; /* Added space between the contact items */
+    }
+
+    .contact-item1,
+    .contact-item2 {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+    }
+
+    .contact-item2 {
+        resize: vertical;
+        height: 150px;
+    }
+
+    .contact-item1 {
+        border-radius: 4px;
+    }
+
+    .contact-item2 {
+        border-radius: 4px;
+    }
+
+    .contact-info {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .contact-info input, .contact-info textarea {
+        width: 100%;
+        padding: 12px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        font-size: 16px;
+    }
+
+    .contact-info button {
+        width: 100%;
+        padding: 15px;
+        font-size: 18px;
+        color: white;
+        background-color: #E43D12;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .contact-info button:hover {
+        background-color: #D13B11;
+    }
+
+    .resume {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .resume-item {
+        width: 90%;
+        margin-bottom: 20px;
+    }
+
+    .pfp-holder {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .box.lang {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .grid-holder {
+        width: 90%;
+        margin-bottom: 20px;
+    }
+
+    .lang-grid {
+        grid-template-columns: auto;
+        width: 100%;
+        padding: 19px;
+    }
+}
+
+
+
+
