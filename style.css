@@ -636,7 +636,6 @@ body{
         border: none;
         transform: none; /* Remove any scaling */
         max-width: 100%; /* Prevent any overflow */
-        object-fit: contain; /* Ensures the content scales to fit within the iframe */
         margin: 0 auto; /* Centers the iframe */
     }
 
