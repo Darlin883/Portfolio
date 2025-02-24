@@ -524,7 +524,6 @@ body{
     .work-grid {
         grid-template-columns: 1fr; /* Single column layout on smaller screens */
         gap: 15px; /* Reduced gap between items */
-        padding: 0 10px; /* Horizontal padding for better spacing */
     }
 
     .work-item {
@@ -541,7 +540,7 @@ body{
     }
 
     .work-item p {
-        font-weight: bold;
+        /* font-weight: bold; */
         margin: 0;
     }
 
@@ -622,14 +621,17 @@ body{
         background-color: #D13B11;
     }
 
-    /* Resume Section - Make the container wider */
-
+    /* Resume Section */
     .resume-pdf iframe {
-        width: 100%;
-        height: 80vh; /* Full viewport height */
-        border: none;
-        transform: none; /* Remove any scaling */
-    }
+    width: 100%;
+    height: 90vh; /* Adjust to better fit the content */
+    border: none;
+    transform: none; /* Remove any scaling */
+    max-width: 100%; /* Prevent any overflow */
+    object-fit: contain; /* Ensures the content scales to fit within the iframe */
+    margin: 0 auto; /* Centers the iframe */
+}
+
     
 
     .pfp-holder {
