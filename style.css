@@ -429,7 +429,7 @@ body{
     height: 700px;
     /* background-color: #3b3b3b; */
 }
-.resume-pdf iframe{
+.resume-pdf embed{
     width: 45%;
     height: 700px;
     border: none;
@@ -622,23 +622,22 @@ body{
     }
 
     /* Resume Section */
+    /* Resume Section */
     .resume-pdf {
+        width: 100%;
         max-width: 100%; /* Prevent any overflow */
-        margin: 0 auto; /* Centers the iframe */
+        margin: 0 auto; /* Centers the content */
         padding: 0 10px; /* Optional: adds small padding to prevent content from touching the edges */
     }
-    
-    .resume-pdf iframe {
-        width: 100%;
-        height: 90vh; /* Adjust to better fit the content */
+
+    .resume-pdf embed {
+        width: 100%; /* Ensure the PDF takes up the full width */
+        height: 90vh; /* Adjust to fit the content */
         border: none;
-        transform: none; /* Remove any scaling */
-        max-width: 100%; /* Prevent any overflow */
-        object-fit: contain; /* Ensures the content scales to fit within the iframe */
-        margin: 0 auto; /* Centers the iframe */
+        object-fit: contain; /* Ensures the content scales to fit within the embed */
+        margin: 0 auto; /* Centers the embed */
     }
 
-    
 
     .pfp-holder {
         flex-direction: column;
