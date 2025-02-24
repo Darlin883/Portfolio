@@ -623,28 +623,14 @@ body{
     }
 
     /* Resume Section - Make the container wider */
-    .resume {
-        width: 100%;
-        margin: 0 auto;
-        padding: 20px;
-        max-width: 800px; /* Make it wider on small screens */
-        background-color: #f7f7f7;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
 
     .resume-pdf iframe {
         width: 100%;
-        height: 600px; /* Adjust height as needed */
-        /* border: none; */
-        transform: scale(0.8); /* This scales down the content */
-        transform-origin: top center; /* Keeps the content from shifting */
+        height: 100vh; /* Full viewport height */
+        border: none;
+        transform: none; /* Remove any scaling */
     }
-
-    .resume-item {
-        width: 90%;
-        margin-bottom: 20px;
-    }
+    
 
     .pfp-holder {
         flex-direction: column;
