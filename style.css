@@ -626,7 +626,7 @@ body{
 
     .resume-pdf iframe {
         width: 100%;
-        height: 100vh; /* Full viewport height */
+        height: 80vh; /* Full viewport height */
         border: none;
         transform: none; /* Remove any scaling */
     }
