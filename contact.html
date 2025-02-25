@@ -16,7 +16,7 @@
                 <li><a href="index.html">About</a></li>
                 <li><a href="Projects.html" >Projects</a></li>
                 <li><a href="contact.html" class="active">Contact</a></li>
-                <li><a href="resume.html">Resume</a></li>
+                <li><a href="resume.html" id="resumeLink">Resume</a></li>
             </ul>
         </div>
     </header>
@@ -46,5 +46,47 @@
         </div>
        </div>
     </section>
+    <script>
+         function handleResumeDisplay(event) {
+            var screenWidth = window.innerWidth;
+            var resumeSection = document.getElementById('resume-box');
+            var currentUrl = window.location.href;
+
+            console.log('Screen width:', screenWidth); // Debug: Check screen width on click
+
+            // Check if we're already on the resume page and adjust behavior
+            if (currentUrl.includes("resume.html")) {
+                if (screenWidth < 768) {
+                    console.log('Mobile detected, opening resume in new tab');
+                    event.preventDefault(); // Prevent default navigation behavior
+                    window.open('PDF/Resume.pdf', '_blank'); // Open resume in a new tab
+                } else {
+                    console.log('Desktop detected, displaying embedded resume');
+                    resumeSection.style.display = 'flex';
+                    resumeSection.style.justifyContent = 'center';
+                    resumeSection.style.alignItems = 'center';
+                }
+            } else {
+                // Handle link navigation for other pages
+                if (screenWidth < 768) {
+                    console.log('Mobile detected, opening resume in new tab');
+                    event.preventDefault();
+                    window.open('PDF/Resume.pdf', '_blank');
+                } else {
+                    console.log('Desktop detected, navigating to resume page');
+                }
+            }
+        }
+
+        // Ensure this script runs after the DOM is fully loaded
+        document.addEventListener("DOMContentLoaded", function() {
+            var resumeLink = document.getElementById('resumeLink');
+            
+            if (resumeLink) {
+                resumeLink.addEventListener("click", handleResumeDisplay);
+                console.log('Resume link listener attached');
+            }
+        });
+    </script>
 </body>
 </html>
