@@ -422,16 +422,19 @@ body{
     text-align: center;
 }
 
-.resume-pdf{
-    display: flex;
-    justify-content: space-evenly;
-    width: 100%;
-    height: 700px;
-    /* background-color: #3b3b3b; */
+.resume-pdf {
+    display: flex; /* Enables flexbox */
+    justify-content: center; /* Centers the iframe horizontally */
+    align-items: center; /* Centers the iframe vertically (if needed) */
+    width: 100%; /* Ensures full-width container */
+    margin: 0 auto; /* Ensures it's centered in the parent */
+    padding: 20px 0; /* Optional: Adds space above and below */
 }
-.resume-pdf iframe{
-    width: 45%;
-    height: 700px;
+
+.resume-pdf iframe {
+    width: 90%; /* Adjust width for better scaling */
+    max-width: 800px; /* Prevents it from being too wide */
+    height: 700px; /* Keeps the iframe at a good height */
     border: none;
 }
 
