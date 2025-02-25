@@ -27,24 +27,30 @@
     </section>
 
     <script>
-        function handleResumeDisplay() {
-    var screenWidth = window.innerWidth;
-    var resumeSection = document.getElementById('resume-box');
-
-    if (screenWidth < 768) {
-        // Open resume in a new tab on mobile
-        window.open('PDF/Resume.pdf', '_blank');
-        resumeSection.style.display = 'none'; // Hide the iframe on mobile
-    } else {
-        // Show the embedded resume on larger screens
-        resumeSection.style.display = 'flex';  // Ensure flexbox is applied
-        resumeSection.style.justifyContent = 'center';  // Centers horizontally
-        resumeSection.style.alignItems = 'center';  // Centers vertically (optional)
-    }
-}
-
-        // Run function on page load
+        function handleResumeDisplay(event) {
+            var screenWidth = window.innerWidth;
+            var resumeSection = document.getElementById('resume-box');
+    
+            if (screenWidth < 768) {
+                event.preventDefault(); // Prevents default navigation behavior
+                window.open('PDF/Resume.pdf', '_blank'); // Opens resume in new tab
+            } else {
+                resumeSection.style.display = 'flex';  
+                resumeSection.style.justifyContent = 'center';  
+                resumeSection.style.alignItems = 'center';  
+            }
+        }
+    
+        // Run function on page load (Keeps iframe centered on desktop)
         window.onload = handleResumeDisplay;
+    
+        // Attach function to "Resume" link click
+        document.addEventListener("DOMContentLoaded", function() {
+            var resumeLink = document.querySelector('a[href="resume.html"]');
+            if (resumeLink) {
+                resumeLink.addEventListener("click", handleResumeDisplay);
+            }
+        });
     </script>
 
 </body>
