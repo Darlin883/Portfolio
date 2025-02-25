@@ -3,24 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>about</title>
+    <title>About</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js" type="module"></script>
     <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js" nomodule></script>
 </head>
 <body>
 
-    <header class="header ">
+    <header class="header">
         <div class="header-row row-left font"><h1>Darlin</h1></div>
         <div class="header-row row-right">
             <ul class="list-style">
                 <li><a href="index.html" class="active">About</a></li>
                 <li><a href="Projects.html">Projects</a></li>
                 <li><a href="contact.html">Contact</a></li>
-                <li><a href="resume.html">Resume</a></li>
+                <li><a href="resume.html" id="resumeLink">Resume</a></li>
             </ul>
         </div>
     </header>
+
     <div class="flex-container-wrapper">
         <section class="content">
             <div class="pfp-holder">
@@ -29,9 +30,6 @@
             <h3>Hi, I'm Darlin Diaz</h3>
             <p style="font-size: 18px;">A passionate 18-year-old developer with a deep curiosity for how technology works behind the scenes—whether in software development or cybersecurity. 
                 Always eager to learn, break things (ethically), and build secure, efficient systems.</p>
-
-
-
         </section>
         <aside class="sidebar">
             <div class="icon-row">
@@ -40,42 +38,61 @@
             </div>
             <p style="margin-top: 0;">Greetings! I'm Darlin, a software engineering student with a passion for <Strong>problem-solving, web development, and cybersecurity.</Strong></p>
             <p>Fueled by the satisfaction of solving complex problems. </p>
-            <p>I am currently attending <strong>Thaddeus Stevens College of Technology</strong> and will be graduating next year with an <strong>associate degree in Computer Software Engineering</strong>.
-            </p>
-
+            <p>I am currently attending <strong>Thaddeus Stevens College of Technology</strong> and will be graduating next year with an <strong>associate degree in Computer Software Engineering</strong>.</p>
         </aside>
     </div>
-    <div class="flex-container-wrapper">
-        <section class="box">
-            <div class="box lang">
-                <div class="box grid-holder">
-                    <div class="icon-holder"><ion-icon name="globe-outline"></ion-icon> <p>Front-end Skills</p></div>
-                    <div class="box lang-grid">
-                        <div class="lang-item"><p>JavaScript</p></div> 
-                        <div class="lang-item"><p>Html</p></div>
-                        <div class="lang-item"><p>CSS</p></div>
-                    </div>
-                </div>
 
-                <div class="box grid-holder">
-                    <div class="icon-holder"><ion-icon name="server-outline"></ion-icon><p>Back-end skills</p></div>
-                    <div class="box lang-grid">
-                        <div class="lang-item"><p>Java</p></div> 
-                        <div class="lang-item"><p>Python</p></div> 
-                        <div class="lang-item"><p>MySQL</p></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
     <footer></footer>
+
     <script>
-    document.querySelectorAll('.list-style a').forEach(link => {
-        link.addEventListener('click', function() {
-            document.querySelector('.active')?.classList.remove('active');
-            this.classList.add('active');
+        document.querySelectorAll('.list-style a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelector('.active')?.classList.remove('active');
+                this.classList.add('active');
+            });
         });
-    });
+
+        function handleResumeDisplay(event) {
+            var screenWidth = window.innerWidth;
+            var resumeSection = document.getElementById('resume-box');
+            var currentUrl = window.location.href;
+
+            console.log('Screen width:', screenWidth); // Debug: Check screen width on click
+
+            // Check if we're already on the resume page and adjust behavior
+            if (currentUrl.includes("resume.html")) {
+                if (screenWidth < 768) {
+                    console.log('Mobile detected, opening resume in new tab');
+                    event.preventDefault(); // Prevent default navigation behavior
+                    window.open('PDF/Resume.pdf', '_blank'); // Open resume in a new tab
+                } else {
+                    console.log('Desktop detected, displaying embedded resume');
+                    resumeSection.style.display = 'flex';
+                    resumeSection.style.justifyContent = 'center';
+                    resumeSection.style.alignItems = 'center';
+                }
+            } else {
+                // Handle link navigation for other pages
+                if (screenWidth < 768) {
+                    console.log('Mobile detected, opening resume in new tab');
+                    event.preventDefault();
+                    window.open('PDF/Resume.pdf', '_blank');
+                } else {
+                    console.log('Desktop detected, navigating to resume page');
+                }
+            }
+        }
+
+        // Ensure this script runs after the DOM is fully loaded
+        document.addEventListener("DOMContentLoaded", function() {
+            var resumeLink = document.getElementById('resumeLink');
+            
+            if (resumeLink) {
+                resumeLink.addEventListener("click", handleResumeDisplay);
+                console.log('Resume link listener attached');
+            }
+        });
     </script>
+
 </body>
 </html>
