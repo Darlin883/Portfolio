@@ -17,7 +17,7 @@
                 <li><a href="index.html">About</a></li>
                 <li><a href="Projects.html">Projects</a></li>
                 <li><a href="contact.html">Contact</a></li>
-                <li><a href="resume.html" class="active">Resume</a></li>
+                <li><a href="resume.html" id="resumeLink" class="active">Resume</a></li>
             </ul>
         </div>
     </header>
@@ -47,14 +47,13 @@
     
         // Ensure this script runs after the DOM is fully loaded
         document.addEventListener("DOMContentLoaded", function() {
-            var resumeLink = document.querySelector('a[href="resume.html"]');
+            var resumeLink = document.getElementById('resumeLink');
             
             if (resumeLink) {
                 resumeLink.addEventListener("click", handleResumeDisplay);
                 console.log('Resume link listener attached');
             }
         });
-    </script>    
-
+    </script>
 </body>
 </html>
