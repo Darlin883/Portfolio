@@ -30,30 +30,31 @@
         function handleResumeDisplay(event) {
             var screenWidth = window.innerWidth;
             var resumeSection = document.getElementById('resume-box');
+            
+            console.log('Screen width:', screenWidth); // Debug: Check screen width on click
     
             if (screenWidth < 768) {
-                // Open resume in a new tab on mobile
+                console.log('Mobile detected, opening resume in new tab');
                 event.preventDefault(); // Prevent default navigation behavior
-                window.open('PDF/Resume.pdf', '_blank'); // Opens resume in new tab
+                window.open('PDF/Resume.pdf', '_blank'); // Open resume in a new tab
             } else {
-                // Show the embedded resume on larger screens
+                console.log('Desktop detected, displaying embedded resume');
                 resumeSection.style.display = 'flex';
                 resumeSection.style.justifyContent = 'center';
                 resumeSection.style.alignItems = 'center';
             }
         }
     
-        // Run function on page load (Keeps iframe centered on desktop)
-        window.onload = function() {
-            handleResumeDisplay(); // Call the function on load
-            // Attach event listener to "Resume" link
+        // Ensure this script runs after the DOM is fully loaded
+        document.addEventListener("DOMContentLoaded", function() {
             var resumeLink = document.querySelector('a[href="resume.html"]');
+            
             if (resumeLink) {
                 resumeLink.addEventListener("click", handleResumeDisplay);
+                console.log('Resume link listener attached');
             }
-        };
-    </script>
-    </script>
+        });
+    </script>    
 
 </body>
 </html>
