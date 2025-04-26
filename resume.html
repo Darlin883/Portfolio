@@ -3,55 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resume</title>
+    <title>Resume | Darlin Diaz</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js" type="module"></script>
     <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js" nomodule></script>
 </head>
 <body>
-
     <header class="header">
-        <div class="header-row row-left font"><h1>Darlin</h1></div>
-        <div class="header-row row-right">
-            <ul class="list-style">
-                <li><a href="index.html">About</a></li>
-                <li><a href="Projects.html">Projects</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="resume.html" id="resumeLink" class="active">Resume</a></li>
-            </ul>
+        <div class="header-container">
+            <div class="header-row row-left font"><h1>Darlin</h1></div>
+            <div class="header-row row-right">
+                <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="list-style">
+                    <li><a href="index.html">About</a></li>
+                    <li><a href="Projects.html">Projects</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="resume.html" id="resumeLink" class="active">Resume</a></li>
+                </ul>
+            </div>
         </div>
     </header>
 
-    <section id="resume-box" class="resume-pdf">
-        <iframe src="PDF/Resume.pdf" width="100%" height="700px" style="border: none;"></iframe>
-    </section>
+    <main class="main-content">
+        <section class="resume-section">
+            <div class="resume-header">
+                <h2>My Resume</h2>
+                <div class="resume-actions">
+                    <a href="PDF/Resume.pdf" download class="btn btn-download">
+                        <ion-icon name="download-outline"></ion-icon>
+                        <span>Download PDF</span>
+                    </a>
+                    <a href="PDF/Resume.pdf" target="_blank" class="btn btn-view">
+                        <ion-icon name="open-outline"></ion-icon>
+                        <span>View in New Tab</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="resume-container">
+                <!-- PDF Viewer for Desktop -->
+                <div class="resume-pdf-desktop" id="resume-box">
+                    <iframe src="PDF/Resume.pdf" width="100%" height="800px" style="border: none;"></iframe>
+                </div>
+
+                <!-- Mobile Alternative -->
+                <div class="resume-mobile-alert">
+                    <div class="mobile-alert-content">
+                        <ion-icon name="phone-portrait-outline" class="mobile-icon"></ion-icon>
+                        <h3>For better viewing experience</h3>
+                        <p>We recommend opening the resume in a new tab or downloading the PDF on mobile devices.</p>
+                        <div class="mobile-actions">
+                            <a href="PDF/Resume.pdf" target="_blank" class="btn btn-primary">
+                                Open Resume
+                            </a>
+                            <a href="PDF/Resume.pdf" download class="btn btn-secondary">
+                                Download PDF
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Resume Highlights -->
+            <div class="resume-highlights">
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <ion-icon name="school-outline"></ion-icon>
+                    </div>
+                    <h3>Education</h3>
+                    <p>Thaddeus Stevens College of Technology</p>
+                    <p>Computer Software Engineering (2024-2026)</p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <ion-icon name="code-slash-outline"></ion-icon>
+                    </div>
+                    <h3>Skills</h3>
+                    <ul>
+                        <li>JavaScript, HTML, CSS</li>
+                        <li>Java, Python, Dart</li>
+                        <li>MySQL, Git, Flask, Flutter</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon">
+                        <ion-icon name="ribbon-outline"></ion-icon>
+                    </div>
+                    <h3>Achievements</h3>
+                    <ul>
+                        <li>Dean's List (2024-2025)</li>
+                        <li>Multiple web development projects</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2023 Darlin Diaz. All rights reserved.</p>
+            <div class="social-links">
+                <a href="https://github.com/darlin883" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/darlin-diaz-mu%C3%B1oz-97603432b/" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        function handleResumeDisplay(event) {
-            var screenWidth = window.innerWidth;
-            var resumeSection = document.getElementById('resume-box');
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+            document.querySelector('.list-style').classList.toggle('active');
+            this.classList.toggle('active');
+        });
+
+        // Handle mobile view
+        function checkScreenSize() {
+            const resumeBox = document.getElementById('resume-box');
+            const mobileAlert = document.querySelector('.resume-mobile-alert');
             
-            console.log('Screen width:', screenWidth); // Debug: Check screen width on click
-    
-            if (screenWidth < 768) {
-                console.log('Mobile detected, opening resume in new tab');
-                event.preventDefault(); // Prevent default navigation behavior
-                window.open('PDF/Resume.pdf', '_blank'); // Open resume in a new tab
+            if (window.innerWidth < 768) {
+                resumeBox.style.display = 'none';
+                mobileAlert.style.display = 'flex';
             } else {
-                console.log('Desktop detected, displaying embedded resume');
-                resumeSection.style.display = 'flex';
-                resumeSection.style.justifyContent = 'center';
-                resumeSection.style.alignItems = 'center';
+                resumeBox.style.display = 'block';
+                mobileAlert.style.display = 'none';
             }
         }
-    
-        // Ensure this script runs after the DOM is fully loaded
+
+        // Initial check
+        checkScreenSize();
+        
+        // Check on resize
+        window.addEventListener('resize', checkScreenSize);
+
+        // Resume link handler
+        function handleResumeDisplay(event) {
+            var screenWidth = window.innerWidth;
+            
+            if (screenWidth < 768) {
+                event.preventDefault();
+                window.open('PDF/Resume.pdf', '_blank');
+            }
+        }
+
         document.addEventListener("DOMContentLoaded", function() {
             var resumeLink = document.getElementById('resumeLink');
-            
             if (resumeLink) {
                 resumeLink.addEventListener("click", handleResumeDisplay);
-                console.log('Resume link listener attached');
             }
         });
     </script>

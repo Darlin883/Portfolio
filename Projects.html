@@ -3,80 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects</title>
+    <title>Projects | Darlin</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <header class="header ">
-        <div class="header-row row-left font"><h1>Darlin</h1></div>
-        <div class="header-row row-right">
-            <ul class="list-style">
-                <li><a href="index.html">About</a></li>
-                <li><a href="Projects.html" class="active">Projects</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="resume.html" id="resumeLink">Resume</a></li>
-            </ul>
+    <header class="header">
+        <div class="header-container">
+            <div class="header-row row-left font"><h1>Darlin</h1></div>
+            <div class="header-row row-right">
+                <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="list-style">
+                    <li><a href="index.html">About</a></li>
+                    <li><a href="Projects.html" class="active">Projects</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="resume.html" id="resumeLink">Resume</a></li>
+                </ul>
+            </div>
         </div>
     </header>
 
-    <section class="box work">
-        
-        <h2 style="padding-top: 20px;">Projects</h2>
-        <div class="box work-info">
-            <div class="box work-grid">
-                <a href="https://darlin883.github.io/OmniFood/" target="_blank"><button class="work-item"><p>OmniFood</p></button></a>
-                <a href="https://emott13.github.io/Kouzina_Charas/" target="_blank"><button class="work-item"><p>Kouzına Charas</p></button></a>
-                <a href="https://darlin883.github.io/Calculator/" target="_blank"><button class="work-item"><p>Calculator</p></button></a>
-                <a href="https://darlin883.github.io/QuizApp/" target="_blank"><button class="work-item"><p>QuizApp</p></button></a>
-                <a href="https://darlin883.github.io/GroceryManager/" target="_blank"><button class="work-item"><p>GroceryManager</p></button></a>
-                <a href="https://darlin883.github.io/WebStore/" target="_blank"><button class="work-item"><p>WebStore</p></button></a>
-                <a href="https://darlin883.github.io/WebClone/" target="_blank"><button class="work-item"><p>WebClone</p></button></a>
-                <a href="https://darlin883.github.io/CSET-105-Weekly-Assignment-2/" target="_blank"><button class="work-item"><p>Rock-Paper-Scissor's</p></button></a>
-                <a href="https://darlin883.github.io/Tic-Tac-Toe/" target="_blank"><button class="work-item"><p>Tic-Tac-Toe</p></button></a>
+    <main class="main-content">
+        <section class="projects-section">
+            <div class="section-header">
+                <h2>My Projects</h2>
+                <p class="section-subtitle">A collection of my recent work and experiments</p>
+            </div>
+            
+            <div class="projects-grid">
+                <a href="https://darlin883.github.io/OmniFood/" target="_blank" class="project-card">
+                    <div class="project-card-inner">
+                        <div class="project-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h3>OmniFood</h3>
+                        <p>A food delivery service website with responsive design</p>
+                        <span class="view-project">View Project <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                
+                <a href="https://emott13.github.io/Kouzina_Charas/" target="_blank" class="project-card">
+                    <div class="project-card-inner">
+                        <div class="project-icon">
+                            <i class="fas fa-pepper-hot"></i>
+                        </div>
+                        <h3>Kouzına Charas</h3>
+                        <p>Greek restaurant website with authentic recipes</p>
+                        <span class="view-project">View Project <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                
+                <a href="https://darlin883.github.io/Calculator/" target="_blank" class="project-card">
+                    <div class="project-card-inner">
+                        <div class="project-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <h3>Calculator</h3>
+                        <p>Interactive calculator with basic arithmetic operations</p>
+                        <span class="view-project">View Project <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                
+                <a href="https://darlin883.github.io/QuizApp/" target="_blank" class="project-card">
+                    <div class="project-card-inner">
+                        <div class="project-icon">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <h3>QuizApp</h3>
+                        <p>Interactive quiz application with multiple categories</p>
+                        <span class="view-project">View Project <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                
+                <a href="https://darlin883.github.io/GroceryManager/" target="_blank" class="project-card">
+                    <div class="project-card-inner">
+                        <div class="project-icon">
+                            <i class="fas fa-shopping-basket"></i>
+                        </div>
+                        <h3>GroceryManager</h3>
+                        <p>Grocery list manager with add/remove functionality</p>
+                        <span class="view-project">View Project <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                
+                <a href="https://darlin883.github.io/WebStore/" target="_blank" class="project-card">
+                    <div class="project-card-inner">
+                        <div class="project-icon">
+                            <i class="fas fa-store"></i>
+                        </div>
+                        <h3>WebStore</h3>
+                        <p>E-commerce prototype with product listings</p>
+                        <span class="view-project">View Project <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                
+                <a href="https://darlin883.github.io/WebClone/" target="_blank" class="project-card">
+                    <div class="project-card-inner">
+                        <div class="project-icon">
+                            <i class="fas fa-clone"></i>
+                        </div>
+                        <h3>WebClone</h3>
+                        <p>Clone of a popular website with similar functionality</p>
+                        <span class="view-project">View Project <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                
+                <a href="https://darlin883.github.io/CSET-105-Weekly-Assignment-2/" target="_blank" class="project-card">
+                    <div class="project-card-inner">
+                        <div class="project-icon">
+                            <i class="fas fa-hand-scissors"></i>
+                        </div>
+                        <h3>Rock-Paper-Scissor's</h3>
+                        <p>Classic game with computer opponent</p>
+                        <span class="view-project">View Project <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                
+                <a href="https://darlin883.github.io/Tic-Tac-Toe/" target="_blank" class="project-card">
+                    <div class="project-card-inner">
+                        <div class="project-icon">
+                            <i class="fas fa-times"></i>
+                        </div>
+                        <h3>Tic-Tac-Toe</h3>
+                        <p>Interactive two-player game with win detection</p>
+                        <span class="view-project">View Project <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2023 Darlin. All rights reserved.</p>
+            <div class="social-links">
+                <a href="https://github.com/darlin883" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/darlin-diaz-mu%C3%B1oz-97603432b/" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
             </div>
         </div>
-    </section>
+    </footer>
+
     <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+            document.querySelector('.list-style').classList.toggle('active');
+            this.classList.toggle('active');
+        });
+
+        // Project card animations
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.querySelector('.project-card-inner').style.transform = 'translateY(-10px)';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.querySelector('.project-card-inner').style.transform = 'translateY(0)';
+            });
+        });
+
+        // Resume link handler (keeping your existing functionality)
         function handleResumeDisplay(event) {
-           var screenWidth = window.innerWidth;
-           var resumeSection = document.getElementById('resume-box');
-           var currentUrl = window.location.href;
+            var screenWidth = window.innerWidth;
+            var currentUrl = window.location.href;
 
-           console.log('Screen width:', screenWidth); // Debug: Check screen width on click
+            if (currentUrl.includes("resume.html")) {
+                if (screenWidth < 768) {
+                    event.preventDefault();
+                    window.open('PDF/Resume.pdf', '_blank');
+                }
+            } else {
+                if (screenWidth < 768) {
+                    event.preventDefault();
+                    window.open('PDF/Resume.pdf', '_blank');
+                }
+            }
+        }
 
-           // Check if we're already on the resume page and adjust behavior
-           if (currentUrl.includes("resume.html")) {
-               if (screenWidth < 768) {
-                   console.log('Mobile detected, opening resume in new tab');
-                   event.preventDefault(); // Prevent default navigation behavior
-                   window.open('PDF/Resume.pdf', '_blank'); // Open resume in a new tab
-               } else {
-                   console.log('Desktop detected, displaying embedded resume');
-                   resumeSection.style.display = 'flex';
-                   resumeSection.style.justifyContent = 'center';
-                   resumeSection.style.alignItems = 'center';
-               }
-           } else {
-               // Handle link navigation for other pages
-               if (screenWidth < 768) {
-                   console.log('Mobile detected, opening resume in new tab');
-                   event.preventDefault();
-                   window.open('PDF/Resume.pdf', '_blank');
-               } else {
-                   console.log('Desktop detected, navigating to resume page');
-               }
-           }
-       }
-
-       // Ensure this script runs after the DOM is fully loaded
-       document.addEventListener("DOMContentLoaded", function() {
-           var resumeLink = document.getElementById('resumeLink');
-           
-           if (resumeLink) {
-               resumeLink.addEventListener("click", handleResumeDisplay);
-               console.log('Resume link listener attached');
-           }
-       });
-   </script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var resumeLink = document.getElementById('resumeLink');
+            if (resumeLink) {
+                resumeLink.addEventListener("click", handleResumeDisplay);
+            }
+        });
+    </script>
 </body>
 </html>
