@@ -163,22 +163,14 @@
         });
 
         // Resume link handler (keeping your existing functionality)
-        function handleResumeDisplay(event) {
-            var screenWidth = window.innerWidth;
-            var currentUrl = window.location.href;
-
-            if (currentUrl.includes("resume.html")) {
-                if (screenWidth < 768) {
-                    event.preventDefault();
-                    window.open('PDF/Resume.pdf', '_blank');
-                }
-            } else {
-                if (screenWidth < 768) {
-                    event.preventDefault();
-                    window.open('PDF/Resume.pdf', '_blank');
-                }
-            }
-        }
+        // function handleResumeDisplay(event) {
+        //     var screenWidth = window.innerWidth;
+            
+        //     if (screenWidth < 768) {
+        //         event.preventDefault();
+        //         window.open('PDF/Resume.pdf', '_blank');
+        //     }
+        // }
 
         document.addEventListener("DOMContentLoaded", function() {
             var resumeLink = document.getElementById('resumeLink');
