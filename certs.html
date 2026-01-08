@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Darlin</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="header-row row-left font"><h1>Darlin</h1></div>
+            <div class="header-row row-right">
+                <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="list-style">
+                    <li><a href="index.html">About</a></li>
+                    <li><a href="Projects.html">Projects</a></li>
+                    <li><a href="certs.html" class="active">Certificates</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="resume.html" id="resumeLink">Resume</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="projects-section">
+            <div class="section-header">
+                <h2>Certificates</h2>
+                <p class="section-subtitle">A collection of my Certificates</p>
+            </div>
+            
+                <div class="projects-grid">
+                    <a href="https://cp.certmetrics.com/CompTIA/en/public/verify/credential/d80d37c6a6d34bbf8fe2c6456e298795" target="_blank" class="project-card">
+                        <div class="project-card-inner">
+                            <div class="project-icon">
+                                <img style="width: 120px; height: 100px;" src="img/security.webp" alt="Security+ Icon">
+                            </div>
+                            <h3>Comptia Security+</h3>
+                            <p></p>
+                            <span class="view-project">View Cert Validation <i class="fas fa-arrow-right"></i></span>
+                        </div>
+                    </a>
+
+                    
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2023 Darlin. All rights reserved.</p>
+            <div class="social-links">
+                <a href="https://github.com/darlin883" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/darlin-diaz-munoz/" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+            document.querySelector('.list-style').classList.toggle('active');
+            this.classList.toggle('active');
+        });
+
+        // Project card animations
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.querySelector('.project-card-inner').style.transform = 'translateY(-10px)';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.querySelector('.project-card-inner').style.transform = 'translateY(0)';
+            });
+        });
+
+        // Resume link handler (keeping your existing functionality)
+        // function handleResumeDisplay(event) {
+        //     var screenWidth = window.innerWidth;
+            
+        //     if (screenWidth < 768) {
+        //         event.preventDefault();
+        //         window.open('PDF/Resume.pdf', '_blank');
+        //     }
+        // }
+
+        // document.addEventListener("DOMContentLoaded", function() {
+        //     var resumeLink = document.getElementById('resumeLink');
+        //     if (resumeLink) {
+        //         resumeLink.addEventListener("click", handleResumeDisplay);
+        //     }
+        // });
+    </script>
+</body>
+</html>
