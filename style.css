@@ -814,3 +814,8 @@ body {
         font-size: 1rem;
     }
 }
+
+.cert-img{
+    height: 120px;
+    width: auto;
+}
