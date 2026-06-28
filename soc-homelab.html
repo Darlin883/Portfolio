@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOC Homelab | Darlin Diaz</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="header-row row-left font"><h1>Darlin</h1></div>
+            <div class="header-row row-right">
+                <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="list-style">
+                    <li><a href="index.html">About</a></li>
+                    <li><a href="Projects.html" class="active">Projects</a></li>
+                    <li><a href="certs.html">Certificates</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="resume.html">Resume</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+
+        <div class="writeup-back">
+            <a href="Projects.html"><i class="fas fa-arrow-left"></i> Back to Projects</a>
+        </div>
+
+        <section class="writeup-hero">
+            <h1>SOC Homelab</h1>
+            <p class="writeup-subtitle">A multi-VM Security Operations environment built on Proxmox VE for hands-on detection, log analysis, and incident response practice.</p>
+            <div class="writeup-tags">
+                <span class="skill-tag">Proxmox VE</span>
+                <span class="skill-tag">Splunk Enterprise</span>
+                <span class="skill-tag">Sysmon</span>
+                <span class="skill-tag">Windows 10</span>
+                <span class="skill-tag">Ubuntu Server</span>
+                <span class="skill-tag">rsyslog</span>
+            </div>
+        </section>
+
+        <section class="writeup-section">
+            <div class="writeup-card">
+                <h2><i class="fas fa-bullseye"></i> Objective</h2>
+                <p>Build a realistic SOC environment from scratch to practice the skills required for a Security Operations Center Analyst role — log ingestion, endpoint telemetry, alert triage, and detection engineering — without relying on simulated cloud labs.</p>
+            </div>
+        </section>
+
+        <section class="writeup-section">
+            <div class="writeup-card">
+                <h2><i class="fas fa-sitemap"></i> Architecture</h2>
+                <p>The lab runs on a dedicated physical machine using Proxmox VE as the hypervisor, with VMs segmented into a isolated lab network separate from management traffic.</p>
+                <div class="arch-grid">
+                    <div class="arch-item">
+                        <div class="arch-icon"><i class="fas fa-desktop"></i></div>
+                        <h3>Windows 10 Endpoint</h3>
+                        <p>Primary target machine. Generates Windows Event Logs and Sysmon telemetry forwarded to Splunk via Universal Forwarder.</p>
+                    </div>
+                    <div class="arch-item">
+                        <div class="arch-icon"><i class="fab fa-linux"></i></div>
+                        <h3>Ubuntu Server</h3>
+                        <p>Linux endpoint configured with rsyslog to forward syslog data into Splunk for centralized Linux visibility.</p>
+                    </div>
+                    <div class="arch-item">
+                        <div class="arch-icon"><i class="fas fa-database"></i></div>
+                        <h3>Splunk Enterprise</h3>
+                        <p>Central SIEM receiving logs from all endpoints. Used for log search, investigation, and detection rule development via SPL.</p>
+                    </div>
+                    <div class="arch-item">
+                        <div class="arch-icon"><i class="fas fa-skull-crossbones"></i></div>
+                        <h3>Kali Linux (In Progress)</h3>
+                        <p>Attacker VM being deployed to simulate adversary techniques and validate detection coverage against generated endpoint telemetry.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="writeup-section">
+            <div class="writeup-card">
+                <h2><i class="fas fa-tools"></i> What Was Built</h2>
+                <ul class="writeup-list">
+                    <li><strong>Network Segmentation</strong> — Lab traffic isolated from management access via separate Proxmox network segments, preventing cross-contamination between attacker and management interfaces.</li>
+                    <li><strong>Splunk SIEM Deployment</strong> — Splunk Enterprise installed and configured with Universal Forwarder on the Windows endpoint to centralize log ingestion. SPL queries used to validate and search endpoint telemetry.</li>
+                    <li><strong>Sysmon Tuning</strong> — Deployed Sysmon with the SwiftOnSecurity configuration to capture process creation (Event ID 1), network connections (Event ID 3), and file I/O events (Event ID 11) for high-fidelity endpoint visibility.</li>
+                    <li><strong>Linux Log Forwarding</strong> — Configured rsyslog on Ubuntu Server to forward syslog data into Splunk, providing cross-platform log coverage.</li>
+                    <li><strong>Windows Event Log Coverage</strong> — Enabled and verified key Windows Event IDs flowing into Splunk alongside Sysmon data for layered endpoint visibility.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="writeup-section">
+            <div class="writeup-card">
+                <h2><i class="fas fa-search"></i> Key Troubleshooting — Hostname Mismatch</h2>
+                <p>During initial setup, Windows endpoint data was not appearing in Splunk as expected. Rather than redeploying the forwarder immediately, a structured troubleshooting approach was used:</p>
+                <div class="debug-steps">
+                    <div class="debug-step">
+                        <span class="step-num">1</span>
+                        <div>
+                            <strong>Ruled out network connectivity</strong>
+                            <p>Verified the Universal Forwarder could reach the Splunk indexer on port 9997. Connectivity was confirmed — not the issue.</p>
+                        </div>
+                    </div>
+                    <div class="debug-step">
+                        <span class="step-num">2</span>
+                        <div>
+                            <strong>Ruled out configuration errors</strong>
+                            <p>Checked inputs.conf and outputs.conf on the forwarder. Configuration was correct — not the issue.</p>
+                        </div>
+                    </div>
+                    <div class="debug-step">
+                        <span class="step-num">3</span>
+                        <div>
+                            <strong>Identified root cause — hostname mismatch</strong>
+                            <p>Data was arriving in Splunk but indexed under an unexpected hostname. The Windows VM hostname did not match the expected value in the SPL search filter, causing the data to appear missing when it was actually present under a different host value.</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="debug-note">This troubleshooting process mirrors real SOC investigation methodology — rule out the obvious before assuming the complex.</p>
+            </div>
+        </section>
+
+        <section class="writeup-section">
+            <div class="writeup-card">
+                <h2><i class="fas fa-road"></i> What's Next</h2>
+                <ul class="writeup-list">
+                    <li>Deploy Kali Linux attacker VM and run initial reconnaissance against the Windows endpoint</li>
+                    <li>Write SPL detection rules for common attack techniques (failed logon brute force, suspicious process creation, lateral movement indicators)</li>
+                    <li>Simulate attack scenarios using Atomic Red Team and validate detection coverage</li>
+                    <li>Build investigation runbooks for common alert types</li>
+                    <li>Integrate Wazuh as an EDR layer alongside Splunk</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p></p>
+            <div class="social-links">
+                <a href="https://github.com/darlin883" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/darlin-diaz-munoz/" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+            document.querySelector('.list-style').classList.toggle('active');
+            this.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

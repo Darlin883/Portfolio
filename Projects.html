@@ -18,9 +18,9 @@
                 <ul class="list-style">
                     <li><a href="index.html">About</a></li>
                     <li><a href="Projects.html" class="active">Projects</a></li>
-                    <li><a href="certs.html" >Certificates</a></li>
+                    <li><a href="certs.html">Certificates</a></li>
                     <li><a href="contact.html">Contact</a></li>
-                    <li><a href="resume.html" id="resumeLink">Resume</a></li>
+                    <li><a href="resume.html">Resume</a></li>
                 </ul>
             </div>
         </div>
@@ -28,67 +28,77 @@
 
     <main class="main-content">
         <section class="projects-section">
-            <div class="section-header">
-                <h2>My Projects</h2>
-                <p class="section-subtitle">A collection of my recent work and experiments</p>
-            </div>
 
             <div class="section-header">
                 <h2>Cybersecurity Projects</h2>
-                <!-- <p class="section-subtitle">Hands-on security labs, tooling, and detection-focused work</p> -->
+                <p class="section-subtitle">Hands-on security labs, tooling, and detection-focused work</p>
             </div>
 
-                <div class="projects-grid">
-                    <a href="https://github.com/Darlin883/burp-clusterbomb-tools" target="_blank" class="project-card">
-                        <div class="project-card-inner">
-                        <div class="project-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <h3>Burp ClusterBomb Automation Toolkit</h3>
-                        <p>Python tools to automate SQLi (boolean/error/time) and SSRF testing using Burp Suite.</p>
-                        <span class="view-project">View Project <i class="fas fa-arrow-right"></i></span>
-                        </div>
-                    </a>
+            <div class="projects-grid">
 
-                    <a href="#" class="project-card">
-                        <div class="project-card-inner">
+                <a href="soc-homelab.html" class="project-card">
+                    <div class="project-card-inner">
                         <div class="project-icon">
                             <i class="fas fa-server"></i>
                         </div>
                         <h3>SOC Homelab – Splunk SIEM</h3>
-                        <p>Multi-VM lab ingesting Windows and Linux logs into Splunk for alert triage and investigation.</p>
-                        <span class="view-project">Writeup Coming Soon</span>
-                        </div>
-                    </a>
+                        <p>Multi-VM SOC environment on Proxmox VE ingesting Windows and Linux logs into Splunk Enterprise. Configured Sysmon for endpoint telemetry, wrote SPL queries for log validation, and practiced structured troubleshooting methodology.</p>
+                        <span class="view-project">Read Writeup <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
 
-                </div>
-            
+                <a href="https://github.com/Darlin883/burp-clusterbomb-tools" target="_blank" class="project-card">
+                    <div class="project-card-inner">
+                        <div class="project-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Burp ClusterBomb Automation Toolkit</h3>
+                        <p>Python tools to automate SQLi (boolean/error/time-based) and SSRF testing using Burp Suite. Built during hands-on web application security training to accelerate vulnerability testing workflows.</p>
+                        <span class="view-project">View on GitHub <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+
+                <a href="https://tryhackme.com/p/Darlin883" target="_blank" class="project-card">
+                    <div class="project-card-inner">
+                        <div class="project-icon">
+                            <i class="fas fa-flag"></i>
+                        </div>
+                        <h3>TryHackMe – SOC & Pentesting Labs</h3>
+                        <p>Completed the Jr. Penetration Tester learning path and SOC Level 1 modules including Blue Team Intro, SOC Team Internals, and Core SOC Solutions. Practiced Wireshark traffic analysis, phishing alert triage, and SIEM investigation workflows.</p>
+                        <span class="view-project">View Profile <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+
+            </div>
+
             <div class="section-header">
                 <h2>Software Projects</h2>
-                <!-- <p class="section-subtitle">Software focused</p> -->
+                <p class="section-subtitle">Web applications and development work</p>
             </div>
-                <div class="projects-grid">
-                    <a href="https://github.com/Darlin883/Acadian-Store" target="_blank" class="project-card">
-                        <div class="project-card-inner">
-                            <div class="project-icon">
-                                <i class="fas fa-store"></i>
-                            </div>
-                            <h3>Acadian Store</h3>
-                            <p>Vendor Marketplace Web Application</p>
-                            <span class="view-project">View Project <i class="fas fa-arrow-right"></i></span>
+
+            <div class="projects-grid">
+
+                <a href="https://github.com/Darlin883/Acadian-Store" target="_blank" class="project-card">
+                    <div class="project-card-inner">
+                        <div class="project-icon">
+                            <i class="fas fa-store"></i>
                         </div>
-                    </a>
-                
-                    <a href="https://darlin883.github.io/Kouzina-Charas/index.html" target="_blank" class="project-card">
-                        <div class="project-card-inner">
-                            <div class="project-icon">
-                                <i class="fas fa-pepper-hot"></i>
-                            </div>
-                            <h3>Kouzına Charas</h3>
-                            <p>Greek restaurant website with authentic recipes</p>
-                            <span class="view-project">View Project <i class="fas fa-arrow-right"></i></span>
+                        <h3>Acadian Store</h3>
+                        <p>Vendor marketplace web application with product listings, user management, and store operations.</p>
+                        <span class="view-project">View Project <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+
+                <a href="https://darlin883.github.io/Kouzina-Charas/index.html" target="_blank" class="project-card">
+                    <div class="project-card-inner">
+                        <div class="project-icon">
+                            <i class="fas fa-pepper-hot"></i>
                         </div>
-                    </a>
+                        <h3>Kouzına Charas</h3>
+                        <p>Greek restaurant website with responsive design, menu pages, and authentic recipe content.</p>
+                        <span class="view-project">View Project <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
 
                 <a href="https://darlin883.github.io/OmniFood/" target="_blank" class="project-card">
                     <div class="project-card-inner">
@@ -96,44 +106,11 @@
                             <i class="fas fa-utensils"></i>
                         </div>
                         <h3>OmniFood</h3>
-                        <p>A food delivery service website with responsive design</p>
+                        <p>Food delivery service website with responsive design and modern CSS layout techniques.</p>
                         <span class="view-project">View Project <i class="fas fa-arrow-right"></i></span>
                     </div>
                 </a>
-                
-                <a href="https://darlin883.github.io/GroceryManager/" target="_blank" class="project-card">
-                    <div class="project-card-inner">
-                        <div class="project-icon">
-                            <i class="fas fa-shopping-basket"></i>
-                        </div>
-                        <h3>GroceryManager</h3>
-                        <p>Grocery list manager with add/remove functionality</p>
-                        <span class="view-project">View Project <i class="fas fa-arrow-right"></i></span>
-                    </div>
-                </a>
-                
-                <a href="https://darlin883.github.io/WebStore/" target="_blank" class="project-card">
-                    <div class="project-card-inner">
-                        <div class="project-icon">
-                            <i class="fas fa-store"></i>
-                        </div>
-                        <h3>WebStore</h3>
-                        <p>E-commerce prototype with product listings</p>
-                        <span class="view-project">View Project <i class="fas fa-arrow-right"></i></span>
-                    </div>
-                </a>
-                
-                <a href="https://darlin883.github.io/WebClone/" target="_blank" class="project-card">
-                    <div class="project-card-inner">
-                        <div class="project-icon">
-                            <i class="fas fa-clone"></i>
-                        </div>
-                        <h3>WebClone</h3>
-                        <p>Clone of a website practicing HTML/CSS</p>
-                        <span class="view-project">View Project <i class="fas fa-arrow-right"></i></span>
-                    </div>
-                </a>
-                
+
             </div>
         </section>
     </main>
@@ -149,38 +126,10 @@
     </footer>
 
     <script>
-        // Mobile menu toggle
         document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
             document.querySelector('.list-style').classList.toggle('active');
             this.classList.toggle('active');
         });
-
-        // Project card animations
-        document.querySelectorAll('.project-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.querySelector('.project-card-inner').style.transform = 'translateY(-10px)';
-            });
-            card.addEventListener('mouseleave', function() {
-                this.querySelector('.project-card-inner').style.transform = 'translateY(0)';
-            });
-        });
-
-        // Resume link handler (keeping your existing functionality)
-        // function handleResumeDisplay(event) {
-        //     var screenWidth = window.innerWidth;
-            
-        //     if (screenWidth < 768) {
-        //         event.preventDefault();
-        //         window.open('PDF/Resume.pdf', '_blank');
-        //     }
-        // }
-
-        // document.addEventListener("DOMContentLoaded", function() {
-        //     var resumeLink = document.getElementById('resumeLink');
-        //     if (resumeLink) {
-        //         resumeLink.addEventListener("click", handleResumeDisplay);
-        //     }
-        // });
     </script>
 </body>
 </html>
