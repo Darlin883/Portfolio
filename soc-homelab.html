@@ -41,7 +41,9 @@
                 <span class="skill-tag">Sysmon</span>
                 <span class="skill-tag">Windows 10</span>
                 <span class="skill-tag">Ubuntu Server</span>
-                <span class="skill-tag">rsyslog</span>
+                <span class="skill-tag">Kali Linux</span>
+                <span class="skill-tag">Hydra</span>
+                <span class="skill-tag">SPL</span>
             </div>
         </section>
 
@@ -74,8 +76,8 @@
                     </div>
                     <div class="arch-item">
                         <div class="arch-icon"><i class="fas fa-skull-crossbones"></i></div>
-                        <h3>Kali Linux (In Progress)</h3>
-                        <p>Attacker VM being deployed to simulate adversary techniques and validate detection coverage against generated endpoint telemetry.</p>
+                        <h3>Kali Linux</h3>
+                        <p>Attacker VM on the isolated lab network used to simulate adversary techniques — port scanning, SSH brute force — and validate detection coverage in Splunk.</p>
                     </div>
                 </div>
             </div>
@@ -85,12 +87,37 @@
             <div class="writeup-card">
                 <h2><i class="fas fa-tools"></i> What Was Built</h2>
                 <ul class="writeup-list">
-                    <li><strong>Network Segmentation</strong> — Lab traffic isolated from management access via separate Proxmox network segments, preventing cross-contamination between attacker and management interfaces.</li>
-                    <li><strong>Splunk SIEM Deployment</strong> — Splunk Enterprise installed and configured with Universal Forwarder on the Windows endpoint to centralize log ingestion. SPL queries used to validate and search endpoint telemetry.</li>
+                    <li><strong>Network Segmentation</strong> — Lab traffic isolated from management access via separate Proxmox network bridges, preventing cross-contamination between attacker and management interfaces.</li>
+                    <li><strong>Splunk SIEM Deployment</strong> — Splunk Enterprise installed and configured with Universal Forwarder on all endpoints to centralize log ingestion. SPL queries used to validate and search telemetry across Windows and Linux hosts.</li>
                     <li><strong>Sysmon Tuning</strong> — Deployed Sysmon with the SwiftOnSecurity configuration to capture process creation (Event ID 1), network connections (Event ID 3), and file I/O events (Event ID 11) for high-fidelity endpoint visibility.</li>
-                    <li><strong>Linux Log Forwarding</strong> — Configured rsyslog on Ubuntu Server to forward syslog data into Splunk, providing cross-platform log coverage.</li>
-                    <li><strong>Windows Event Log Coverage</strong> — Enabled and verified key Windows Event IDs flowing into Splunk alongside Sysmon data for layered endpoint visibility.</li>
+                    <li><strong>Linux Log Forwarding</strong> — Configured Splunk Universal Forwarder on Ubuntu Server to ship syslog and auth.log into Splunk with correct sourcetype configuration for proper field extraction.</li>
+                    <li><strong>Windows Event Log Coverage</strong> — Enabled and verified Windows Security, System, Application, and Sysmon/Operational logs flowing into Splunk for layered endpoint visibility.</li>
+                    <li><strong>Attack Simulation</strong> — Deployed Kali Linux attacker VM and ran port scan (nmap) and SSH brute force (Hydra) simulations against lab endpoints. Analyzed resulting artifacts in Splunk to understand what each attack technique generates in logs and where coverage gaps exist.</li>
+                    <li><strong>Detection Rule Development</strong> — Built two scheduled SPL detection rules from real attack data, both validated end-to-end against live attack traffic and confirmed firing in Splunk Triggered Alerts.</li>
                 </ul>
+            </div>
+        </section>
+
+        <section class="writeup-section">
+            <div class="writeup-card">
+                <h2><i class="fas fa-bell"></i> Detection Rules</h2>
+                <p>Both rules are scheduled every 5 minutes in Splunk, trigger on results &gt; 0, and were validated end-to-end by running the corresponding attack simulation and confirming the alert fired in Triggered Alerts.</p>
+                <div class="debug-steps">
+                    <div class="debug-step">
+                        <span class="step-num">1</span>
+                        <div>
+                            <strong>Port Scan Detection — Inbound WFP</strong>
+                            <p>Detects inbound port scans against the Windows endpoint by monitoring Windows Firewall (WFP) blocked connection events (EventCode 5157). Triggers when 3 or more unique destination ports are blocked from a single source IP within a 60-second window. Multicast traffic excluded to eliminate SSDP noise. Threshold set to 3 based on empirical observation that a full 1000-port nmap scan only generated 6 WFP events — WFP logs only ports matching firewall filter rules, not silently dropped packets.</p>
+                        </div>
+                    </div>
+                    <div class="debug-step">
+                        <span class="step-num">2</span>
+                        <div>
+                            <strong>SSH Brute Force Detection — linux-logsource</strong>
+                            <p>Detects SSH brute force attempts against the Linux endpoint by monitoring auth.log for failed password events. Uses SPL regex extraction to parse source IP and username from raw log lines. Triggers on 5 or more failed login attempts from a single IP within 60 seconds. Also tracks unique usernames targeted to distinguish credential stuffing (many usernames) from targeted brute force (one username, many passwords) — context that helps an analyst assess severity during triage.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -129,10 +156,9 @@
             <div class="writeup-card">
                 <h2><i class="fas fa-road"></i> What's Next</h2>
                 <ul class="writeup-list">
-                    <li>Deploy Kali Linux attacker VM and run initial reconnaissance against the Windows endpoint</li>
-                    <li>Write SPL detection rules for common attack techniques (failed logon brute force, suspicious process creation, lateral movement indicators)</li>
+                    <li>Build alert triage runbook — structured analyst workflow for investigating a triggered alert (pivot on source IP, correlate across Windows and Linux logs, determine real threat vs. noise)</li>
+                    <li>Additional attack simulations — enumeration and lateral movement techniques, generating new log artifacts to write detection rules against</li>
                     <li>Simulate attack scenarios using Atomic Red Team and validate detection coverage</li>
-                    <li>Build investigation runbooks for common alert types</li>
                     <li>Integrate Wazuh as an EDR layer alongside Splunk</li>
                 </ul>
             </div>
