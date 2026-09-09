@@ -44,6 +44,7 @@
                 <span class="skill-tag">Kali Linux</span>
                 <span class="skill-tag">Hydra</span>
                 <span class="skill-tag">SPL</span>
+                <span class="skill-tag">Alert Triage</span>
             </div>
         </section>
 
@@ -93,7 +94,9 @@
                     <li><strong>Linux Log Forwarding</strong> — Configured Splunk Universal Forwarder on Ubuntu Server to ship syslog and auth.log into Splunk with correct sourcetype configuration for proper field extraction.</li>
                     <li><strong>Windows Event Log Coverage</strong> — Enabled and verified Windows Security, System, Application, and Sysmon/Operational logs flowing into Splunk for layered endpoint visibility.</li>
                     <li><strong>Attack Simulation</strong> — Deployed Kali Linux attacker VM and ran port scan (nmap) and SSH brute force (Hydra) simulations against lab endpoints. Analyzed resulting artifacts in Splunk to understand what each attack technique generates in logs and where coverage gaps exist.</li>
-                    <li><strong>Detection Rule Development</strong> — Built two scheduled SPL detection rules from real attack data, both validated end-to-end against live attack traffic and confirmed firing in Splunk Triggered Alerts.</li>
+                    <li><strong>Detection Rule Development</strong> — Built three scheduled SPL detection rules from real attack data (inbound port scan, SSH brute force, and successful-login-after-brute-force correlation), all validated end-to-end against live attack traffic and confirmed firing in Splunk Triggered Alerts.</li>
+                    <li><strong>Alert Triage Runbook</strong> — Documented a general triage workflow plus per-rule triage steps for each detection, covering enrichment, validation, and escalation decisions.</li>
+                    <li><strong>Enumeration Simulation</strong> — Ran SMB enumeration attempts from the Kali VM against the Windows endpoint under both default and deliberately opened firewall configurations to compare attacker visibility.</li>
                 </ul>
             </div>
         </section>
@@ -101,7 +104,7 @@
         <section class="writeup-section">
             <div class="writeup-card">
                 <h2><i class="fas fa-bell"></i> Detection Rules</h2>
-                <p>Both rules are scheduled every 5 minutes in Splunk, trigger on results &gt; 0, and were validated end-to-end by running the corresponding attack simulation and confirming the alert fired in Triggered Alerts.</p>
+                <p>All three rules are scheduled in Splunk, trigger on results &gt; 0, and were validated end-to-end by running the corresponding attack simulation and confirming the alert fired in Triggered Alerts.</p>
                 <div class="debug-steps">
                     <div class="debug-step">
                         <span class="step-num">1</span>
@@ -117,7 +120,28 @@
                             <p>Detects SSH brute force attempts against the Linux endpoint by monitoring auth.log for failed password events. Uses SPL regex extraction to parse source IP and username from raw log lines. Triggers on 5 or more failed login attempts from a single IP within 60 seconds. Also tracks unique usernames targeted to distinguish credential stuffing (many usernames) from targeted brute force (one username, many passwords) — context that helps an analyst assess severity during triage.</p>
                         </div>
                     </div>
+                    <div class="debug-step">
+                        <span class="step-num">3</span>
+                        <div>
+                            <strong>Probable Compromise — SSH Success After Failed Attempts</strong>
+                            <p>Upgrades a brute-force alert into a probable-compromise alert by correlating a <em>successful</em> SSH login with recent failed attempts from the same source IP. Uses SPL <code>streamstats</code> with a rolling 10-minute lookback window per source IP, rather than a fixed time bucket, so the failed-attempt count stays accurate regardless of where the success lands relative to bucket boundaries. Set to Critical severity — the highest of the three rules — since it fires on a probable successful compromise rather than just an attempt. Live-tested against a real brute-force-then-login sequence from the Kali attacker VM and confirmed firing correctly.</p>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </section>
+
+        <section class="writeup-section">
+            <div class="writeup-card">
+                <h2><i class="fas fa-clipboard-list"></i> Alert Triage Runbook</h2>
+                <p>Built a structured triage runbook covering the general analyst workflow — acknowledge, enrich, validate, decide, act, document — plus per-rule triage steps for each detection above: pivoting on the source IP, correlating across Windows and Linux logs, and distinguishing a real threat from noise before escalating.</p>
+            </div>
+        </section>
+
+        <section class="writeup-section">
+            <div class="writeup-card">
+                <h2><i class="fas fa-user-secret"></i> Enumeration Simulation — SMB</h2>
+                <p>Ran an SMB enumeration simulation from the Kali attacker VM against the Windows endpoint (nmap SMB NSE scripts, smbclient, enum4linux). Baseline (default hardened config) showed Windows Firewall silently blocking inbound SMB entirely. Deliberately opened the SMB path to compare results: port reachable, but anonymous/null-session SMB authentication was still rejected by default — NetBIOS host info leaked via NBT-NS (a separate, unauthenticated protocol), but no share or user enumeration was possible. A concrete, realistic finding: a properly hardened Windows host resists SMB recon even when the port itself is reachable.</p>
             </div>
         </section>
 
@@ -156,10 +180,10 @@
             <div class="writeup-card">
                 <h2><i class="fas fa-road"></i> What's Next</h2>
                 <ul class="writeup-list">
-                    <li>Build alert triage runbook — structured analyst workflow for investigating a triggered alert (pivot on source IP, correlate across Windows and Linux logs, determine real threat vs. noise)</li>
-                    <li>Additional attack simulations — enumeration and lateral movement techniques, generating new log artifacts to write detection rules against</li>
+                    <li>Decide whether to build a detection off the SMB enumeration result as-is, or deliberately weaken host hardening to compare against fuller enumeration, then write the corresponding rule</li>
+                    <li>Saved searches / dashboards in Splunk for ongoing monitoring, not just alert-triggered rules</li>
+                    <li>Add Suricata on the isolated lab network for packet-level visibility, to catch silently dropped scan probes that Windows Firewall logging misses</li>
                     <li>Simulate attack scenarios using Atomic Red Team and validate detection coverage</li>
-                    <li>Integrate Wazuh as an EDR layer alongside Splunk</li>
                 </ul>
             </div>
         </section>
