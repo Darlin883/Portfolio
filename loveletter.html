@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VBS.LoveLetter Analysis | Darlin Diaz</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="header-row row-left font"><h1>Darlin</h1></div>
+            <div class="header-row row-right">
+                <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="list-style">
+                    <li><a href="index.html">About</a></li>
+                    <li><a href="Projects.html">Projects</a></li>
+                    <li><a href="malware-analysis.html" class="active">Malware Analysis</a></li>
+                    <li><a href="certs.html">Certificates</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="resume.html">Resume</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+
+        <div class="writeup-back">
+            <a href="malware-analysis.html"><i class="fas fa-arrow-left"></i> Back to Malware Analysis</a>
+        </div>
+
+        <section class="writeup-hero">
+            <h1>VBS.LoveLetter – Polish "RACHUNEK" Variant</h1>
+            <p class="writeup-subtitle">Static and dynamic analysis of a copycat variant of the 2000 "ILOVEYOU" worm in an isolated FLARE-VM + REMnux lab, ending in a tested two-tier YARA detection.</p>
+            <div class="writeup-tags">
+                <span class="skill-tag">FLARE-VM</span>
+                <span class="skill-tag">REMnux / INetSim</span>
+                <span class="skill-tag">Process Monitor</span>
+                <span class="skill-tag">Regshot</span>
+                <span class="skill-tag">YARA</span>
+                <span class="skill-tag">VBScript</span>
+                <span class="skill-tag">MITRE ATT&amp;CK</span>
+                <span class="skill-tag">IOC Extraction</span>
+            </div>
+            <div class="hero-cta writeup-actions">
+                <a href="PDF/LoveLetter-Malware-Analysis-Report.pdf" target="_blank" class="btn btn-primary"><i class="fas fa-file-pdf"></i> Full Report (PDF)</a>
+                <a href="https://github.com/Darlin883/malware-analysis/tree/main/loveletter" target="_blank" class="btn btn-secondary"><i class="fab fa-github"></i> Report, YARA &amp; Evidence</a>
+            </div>
+        </section>
+
+        <section class="writeup-section">
+            <div class="writeup-card">
+                <h2><i class="fas fa-bullseye"></i> Key Findings</h2>
+                <ul class="writeup-list">
+                    <li><strong>Not the original worm.</strong> Static analysis showed a Polish copycat: the email lure was renamed to "RACHUNEK" (Polish for "bill/invoice"), self-copies were renamed, and the original's password-stealer download was removed.</li>
+                    <li><strong>Expanded target list.</strong> Unlike the 2000 original, this variant also infects <code>.txt</code> and <code>.html</code> files, hiding the victim's original and planting a <code>.vbs</code> copy beside it.</li>
+                    <li><strong>Least privilege defeated persistence.</strong> Run as a standard user with UAC on, every self-copy into Windows folders and the HKLM Run key write failed with ACCESS DENIED. The worm could not survive a reboot.</li>
+                    <li><strong>Failures were invisible.</strong> <code>On Error Resume Next</code> hid ~45 failed writes from the user. Process Monitor recorded every one.</li>
+                    <li><strong>Detection.</strong> A two-tier YARA rule matched 6/6 copies of the worm with 0 false positives across 7,272 legitimate scripts.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="writeup-section">
+            <div class="writeup-card">
+                <h2><i class="fas fa-fingerprint"></i> Sample</h2>
+                <div class="table-wrap">
+                    <table class="writeup-table">
+                        <tr><th>File</th><td><code>VBS.LoveLetter.txt.vbs</code> (9,686 bytes)</td></tr>
+                        <tr><th>SHA256</th><td><code class="hash">D3F6956E01E2A4BCDBDCE1B41D0F31E546A102DC384FC9E81B9F1D912E099A13</code></td></tr>
+                        <tr><th>Type</th><td>VBScript mass-mailing worm</td></tr>
+                        <tr><th>VirusTotal</th><td>49/61 detections</td></tr>
+                        <tr><th>Source</th><td>theZoo</td></tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="writeup-section">
+            <div class="writeup-card">
+                <h2><i class="fas fa-code"></i> Static Analysis</h2>
+                <p>I read the full source before running anything, then wrote down predictions for a standard-user run. The worm's main routine runs in this order:</p>
+                <div class="debug-steps">
+                    <div class="debug-step"><span class="step-num">1</span><div><strong>Self-copy</strong><p>Copies itself into Windows folders as <code>MSKernel.vbs</code> and <code>WinDLL.vbs</code>, names chosen to blend in with system files.</p></div></div>
+                    <div class="debug-step"><span class="step-num">2</span><div><strong>Persistence</strong><p>Writes HKLM Run / RunServices autostart entries and hijacks the Internet Explorer start page.</p></div></div>
+                    <div class="debug-step"><span class="step-num">3</span><div><strong>Email spreading</strong><p>Mails itself as <code>RACHUNK.TXT.vbs</code> to every Outlook contact. With extensions hidden, it displays as <code>RACHUNK.TXT</code>.</p></div></div>
+                    <div class="debug-step"><span class="step-num">4</span><div><strong>File infection</strong><p>Crawls every drive and replaces or shadows files by extension with copies of itself.</p></div></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="writeup-section">
+            <div class="writeup-card">
+                <h2><i class="fas fa-play-circle"></i> Dynamic Analysis</h2>
+                <p>Procmon filtered to <code>wscript.exe</code>, Regshot before/after, and a bait folder of <code>.jpg</code>, <code>.mp3</code>, <code>.js</code>, <code>.txt</code> and <code>.html</code> files. The first run captured 22M+ Procmon events and exhausted the VM's memory, so I reverted, dropped filtered events, and renamed the bait folder so the crawl reached it first. On the second run the bait was infected within seconds.</p>
+                <figure class="writeup-figure">
+                    <img src="img/malware/loveletter-run2-04-bait-after.png" alt="Bait folder after infection showing .vbs copies beside hidden originals" loading="lazy">
+                    <figcaption>Bait folder after infection: <code>.vbs</code> copies planted beside hidden originals.</figcaption>
+                </figure>
+                <figure class="writeup-figure">
+                    <img src="img/malware/loveletter-twins-hash.png" alt="PowerShell Get-FileHash output showing all infected copies share the sample's SHA256" loading="lazy">
+                    <figcaption>Every infected copy has the same SHA256 as the original sample.</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section class="writeup-section">
+            <div class="writeup-card">
+                <h2><i class="fas fa-user-shield"></i> Persistence vs. Least Privilege</h2>
+                <div class="table-wrap">
+                    <table class="writeup-table">
+                        <thead><tr><th>Target</th><th>Result</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>C:\Windows\System32\MSKernel.vbs</code></td><td>ACCESS DENIED (~15 retries)</td></tr>
+                            <tr><td><code>C:\Windows\WinDLL.vbs</code></td><td>ACCESS DENIED (~15 retries)</td></tr>
+                            <tr><td><code>C:\Windows\System32\RACHUNK.TXT.vbs</code></td><td>ACCESS DENIED</td></tr>
+                            <tr><td><code>HKLM\...\CurrentVersion\Run</code></td><td>ACCESS DENIED</td></tr>
+                            <tr><td><code>HKCU\...\Internet Explorer\Main\Start Page</code></td><td><strong>Succeeded</strong>: <code>www[.]plusgsm[.]pl</code></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <figure class="writeup-figure">
+                    <img src="img/malware/loveletter-run2-08-hklm-run-denied.png" alt="Process Monitor event showing the HKLM Run key write denied" loading="lazy">
+                    <figcaption>Procmon: the HKLM Run key write denied for a standard user.</figcaption>
+                </figure>
+                <p class="debug-note">Only the per-user browser change succeeded. With no self-copy and no Run key, the worm cannot relaunch after a reboot.</p>
+            </div>
+        </section>
+
+        <section class="writeup-section">
+            <div class="writeup-card">
+                <h2><i class="fas fa-balance-scale"></i> Predictions vs. Results</h2>
+                <div class="table-wrap">
+                    <table class="writeup-table">
+                        <thead><tr><th>Prediction (standard user, UAC on)</th><th>Result</th></tr></thead>
+                        <tbody>
+                            <tr><td>Self-copies to Windows folders fail</td><td><i class="fas fa-check result-ok"></i> Correct</td></tr>
+                            <tr><td>HKLM Run key fails</td><td><i class="fas fa-check result-ok"></i> Correct</td></tr>
+                            <tr><td>IE Start Page (HKCU) succeeds</td><td><i class="fas fa-check result-ok"></i> Correct</td></tr>
+                            <tr><td>No visible errors</td><td><i class="fas fa-check result-ok"></i> Correct</td></tr>
+                            <tr><td><code>.jpg</code>, <code>.mp3</code>, <code>.js</code> bait infected</td><td><i class="fas fa-check result-ok"></i> Correct</td></tr>
+                            <tr><td><code>.txt</code> and <code>.html</code> bait untouched</td><td><i class="fas fa-times result-bad"></i> <strong>Wrong: this variant targets them too</strong></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>The missed predictions led to the most significant finding: the variant's author expanded the original target list.</p>
+            </div>
+        </section>
+
+        <section class="writeup-section">
+            <div class="writeup-card">
+                <h2><i class="fas fa-crosshairs"></i> MITRE ATT&amp;CK</h2>
+                <div class="writeup-tags">
+                    <span class="skill-tag">T1566.001 Spearphishing Attachment</span>
+                    <span class="skill-tag">T1204.002 Malicious File</span>
+                    <span class="skill-tag">T1059.005 Visual Basic</span>
+                    <span class="skill-tag">T1547.001 Run Keys</span>
+                    <span class="skill-tag">T1036.007 Double File Extension</span>
+                    <span class="skill-tag">T1036.005 Match Legitimate Name</span>
+                    <span class="skill-tag">T1564.001 Hidden Files</span>
+                    <span class="skill-tag">T1083 File Discovery</span>
+                    <span class="skill-tag">T1087.003 Email Account Discovery</span>
+                    <span class="skill-tag">T1534 Internal Spearphishing</span>
+                    <span class="skill-tag">T1485 Data Destruction</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="writeup-section">
+            <div class="writeup-card">
+                <h2><i class="fas fa-search"></i> Detection: YARA</h2>
+                <p>Two tiers: a high-confidence <strong>alerting</strong> rule for this variant (a family routine name plus two variant-only file names) and a broad <strong>hunting</strong> rule for the LoveLetter family. I avoided generic VBScript constructs like <code>On Error Resume Next</code> that also appear in legitimate scripts.</p>
+<pre class="code-block"><code>rule VBS_LoveLetter_PL_Variant
+{
+    strings:
+        $fam1 = "spreadtoemail"   nocase
+        $fam2 = "infectfiles"     nocase
+        $var1 = "MSKernel.vbs"    nocase
+        $var2 = "WinDLL.vbs"      nocase
+        $var3 = "RACHUNK.TXT.vbs" nocase
+        $var4 = "RACHUNEK.HTM"    nocase
+    condition:
+        1 of ($fam*) and 2 of ($var*)
+}</code></pre>
+                <div class="table-wrap">
+                    <table class="writeup-table">
+                        <thead><tr><th>Test</th><th>Result</th></tr></thead>
+                        <tbody>
+                            <tr><td>Original sample + 5 infected copies</td><td><strong>6/6 matched</strong></td></tr>
+                            <tr><td>7,272 legitimate <code>.vbs</code>, <code>.vbe</code>, <code>.js</code>, <code>.wsf</code>, <code>.hta</code> files</td><td><strong>0 false positives</strong></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <figure class="writeup-figure">
+                    <img src="img/malware/loveletter-yara-02-false-positive-test.png" alt="YARA false-positive test across thousands of legitimate scripts" loading="lazy">
+                    <figcaption>False-positive test across Windows, Program Files and FLARE-VM tool scripts.</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section class="writeup-section">
+            <div class="writeup-card">
+                <h2><i class="fas fa-graduation-cap"></i> Lessons Learned</h2>
+                <ul class="writeup-list">
+                    <li><strong>Least privilege works.</strong> A standard account with UAC stopped this worm's persistence entirely.</li>
+                    <li><strong>Logs over the screen.</strong> The user saw nothing; Procmon showed ~45 blocked writes.</li>
+                    <li><strong>Predict first.</strong> Writing predictions before detonation turned two wrong guesses into the key finding.</li>
+                    <li><strong>Configure tools before detonating.</strong> Unfiltered Procmon crashed the first run, and a default Regshot setting missed the bait folder.</li>
+                    <li><strong>IOCs need judgment.</strong> Hashes follow content, not file names, and legitimate domains are context, not block-list entries.</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://github.com/darlin883" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/darlin-diaz-munoz/" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://tryhackme.com/p/MalW4tch" aria-label="TryHackMe"><i class="fas fa-flag"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+            document.querySelector('.list-style').classList.toggle('active');
+            this.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
